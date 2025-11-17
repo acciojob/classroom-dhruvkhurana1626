@@ -44,23 +44,26 @@ public class StudentController {
     public ResponseEntity<Student> getStudentByName(@PathVariable String name){
         Student student = studentService.findStudent(name);
         if(student==null){
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(student, HttpStatus.CREATED);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
     @GetMapping("/get-teacher-by-name/{name}")
     public ResponseEntity<Teacher> getTeacherByName(@PathVariable String name){
         Teacher teacher = studentService.findTeacher(name);
         if(teacher==null){
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
+        return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
     @GetMapping("/get-students-by-teacher-name/{teacher}")
     public ResponseEntity<List<String>> getStudentsByTeacherName(@PathVariable String teacher){
         List<String> students = studentService.findStudentsFromTeacher(teacher);
+        if(students==null){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(students, HttpStatus.CREATED);
     }
 
@@ -72,12 +75,12 @@ public class StudentController {
 
     @DeleteMapping("/delete-teacher-by-name")
     public ResponseEntity<String> deleteTeacherByName(@RequestParam String teacher){
-
-        return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.CREATED);
+        studentService.deleteTeacher(teacher);
+        return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.OK);
     }
     @DeleteMapping("/delete-all-teachers")
     public ResponseEntity<String> deleteAllTeachers(){
-
-        return new ResponseEntity<>("All teachers deleted successfully", HttpStatus.CREATED);
+        studentService.deleteAllTeachers();
+        return new ResponseEntity<>("All teachers deleted successfully", HttpStatus.OK);
     }
 }
