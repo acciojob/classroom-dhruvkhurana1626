@@ -1,6 +1,4 @@
 package com.driver;
-
-import java.sql.ClientInfoStatus;
 import java.util.*;
 
 import org.springframework.stereotype.Repository;
@@ -13,9 +11,9 @@ public class StudentRepository {
     private HashMap<String, List<String>> teacherStudentMapping;
 
     public StudentRepository(){
-        this.studentMap = new HashMap<String, Student>();
-        this.teacherMap = new HashMap<String, Teacher>();
-        this.teacherStudentMapping = new HashMap<String, List<String>>();
+        this.studentMap = new HashMap<>();
+        this.teacherMap = new HashMap<>();
+        this.teacherStudentMapping = new HashMap<>();
     }
 
     public void saveStudent(Student student){
@@ -68,7 +66,7 @@ public class StudentRepository {
 
     public void deleteTeacher(String teacher){
         // your code goes here
-        if(teacherMap.containsKey(teacher)) teacherMap.remove(teacher);
+        teacherMap.remove(teacher);
     }
 
     public void deleteAllTeachers(){
