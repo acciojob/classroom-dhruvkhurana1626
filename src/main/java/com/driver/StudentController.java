@@ -64,7 +64,7 @@ public class StudentController {
         if(students==null){
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(students, HttpStatus.CREATED);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     @GetMapping("/get-all-students")

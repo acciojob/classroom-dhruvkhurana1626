@@ -13,4 +13,12 @@ public class Teacher {
     private String name;
     private int numberOfStudents;
     private int age;
+
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
+    public void setNumberOfStudents(int numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
 }

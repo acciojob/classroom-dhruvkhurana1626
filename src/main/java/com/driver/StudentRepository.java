@@ -30,7 +30,11 @@ public class StudentRepository {
         if(studentMap.containsKey(student) && teacherMap.containsKey(teacher)){
             teacherStudentMapping.putIfAbsent(teacher,new ArrayList<>());
             List<String> studentlist = teacherStudentMapping.get(teacher);
-            if(!studentlist.contains(student))studentlist.add(student);
+            if(!studentlist.contains(student)){
+                Teacher t = teacherMap.get(teacher);
+                t.setNumberOfStudents(t.getNumberOfStudents()+1);
+                studentlist.add(student);
+            }
         }
     }
 
@@ -55,22 +59,25 @@ public class StudentRepository {
     public List<String> findStudentsFromTeacher(String teacher){
         // your code goes here
         // find student list corresponding to a teacher
-        if(!teacherStudentMapping.containsKey(teacher)) return null;
+        if(!teacherStudentMapping.containsKey(teacher)) return new ArrayList<>();
         return teacherStudentMapping.get(teacher);
     }
 
     public List<String> findAllStudents(){
         // your code goes here
+        if(studentMap.size()==0) return new ArrayList<>();
         return new ArrayList<>(studentMap.keySet());
     }
 
     public void deleteTeacher(String teacher){
         // your code goes here
         teacherMap.remove(teacher);
+        teacherStudentMapping.remove(teacher);
     }
 
     public void deleteAllTeachers(){
         // your code goes here
         teacherMap.clear();
+        teacherStudentMapping.clear();
     }
 }
